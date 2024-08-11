@@ -1,0 +1,44 @@
+{
+  "name": "fullstack-app-template",
+  "version": "1.0.0",
+  "description": "docker-compose up --build",
+  "main": "index.js",
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:frontend": "eslint 'frontend/src/**/*.{ts,tsx}' --fix",
+    "format:frontend": "prettier --write 'frontend/src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "lint:backend": "eslint 'backend/src/**/*.{js,ts}' --fix",
+    "format:backend": "prettier --write 'backend/src/**/*.{js,ts,json,md}'",
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "format": "npm run format:frontend && npm run format:backend",
+    "start:apps": "docker-compose up --build",
+    "setAppData": "tsx backend/scripts/setupDynamo.ts",
+    "install:all": "npm ci",
+    "build:all": "npm run build --workspaces",
+    "start:frontend": "npm run start --workspace=frontend",
+    "start:backend": "npm run start --workspace=backend",
+    "start:all": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.16.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "tsx": "^4.16.5",
+    "typescript": "^5.5.4"
+  }
+}

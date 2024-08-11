@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Dependency directories
+/frontend/node_modules
+/backend/node_modules
+
+# Build directories
+/frontend/dist
+/backend/dist
+
+# Environment variables
+.env
+/frontend/.env
+/backend/.env
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+/frontend/.vite
+
+# IDE specific
+.idea/
+.vscode/
+
+# MacOS
+.DS_Store
