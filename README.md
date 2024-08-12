@@ -92,11 +92,7 @@ This full-stack application demonstrates the integration of modern frontend tech
 
 ## Getting Started
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/your-username/fullstack-repo.git
-   cd fullstack-repo
-   ```
+1. Clone the repository
 
 2. Install dependencies for all workspaces:
    ```
