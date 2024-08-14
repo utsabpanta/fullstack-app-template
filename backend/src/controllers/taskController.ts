@@ -28,6 +28,7 @@ const TABLE_NAME = 'Tasks';
  *
  * This implementation is provided for demonstration purposes only and should be replaced with more
  * efficient querying techniques in a production setting.
+ * * **Route:** `GET api/tasks`
  *
  */
 export const getTasks = async (req: Request, res: Response): Promise<void> => {
@@ -58,9 +59,8 @@ export const getTasks = async (req: Request, res: Response): Promise<void> => {
  * associated with a particular user, identified by their `userId`.
  *
  * The `userId` is expected to be provided as a URL parameter in the route.
- * The route format should be `/users/:userId/tasks`.
  *
- * **Route:** `GET /users/:userId/tasks`
+ * **Route:** `GET api/users/:userId/tasks`
  * TODO - Add pagination support
  */
 
@@ -101,12 +101,11 @@ export const getTasksByUser = async (
  * of the primary key (PK) and sort key (SK) in the table.
  *
  * The `userId` and `taskId` are expected to be provided as URL parameters in the route.
- * The route format should be `/users/:userId/tasks/:taskId`.
  *
  * If the task is found, it is returned as a JSON object. If the task is not found, a 404 error
  * is returned. If there is an error during the operation, a 500 error is returned.
  *
- * **Route:** `GET /users/:userId/tasks/:taskId`
+ * **Route:** `GET api/users/:userId/tasks/:taskId`
  */
 export const getTaskById = async (req: Request, res: Response) => {
   const { userId, taskId } = req.params;
@@ -140,7 +139,7 @@ export const getTaskById = async (req: Request, res: Response) => {
  * If all required fields are present, it generates a unique `taskId`, constructs the task object, and
  * inserts it into the DynamoDB table. Upon successful creation, it returns a 201 status with the `taskId`.
  *
- * **Route:** `POST /tasks`
+ * **Route:** `POST api/users/:userId/tasks`
  */
 export const createTask = async (req: Request, res: Response) => {
   const { userId, title, description, status, dueDate } = req.body;
@@ -184,9 +183,8 @@ export const createTask = async (req: Request, res: Response) => {
  * and the updated task is returned as a JSON object.
  *
  * The `userId` and `taskId` are expected to be provided as URL parameters in the route.
- * The route format should be `/users/:userId/tasks/:taskId`.
  *
- * **Route:** `PUT /users/:userId/tasks/:taskId`
+ * **Route:** `PUT api/users/:userId/tasks/:taskId`
  */
 export const updateTask = async (req: Request, res: Response) => {
   const { userId, taskId } = req.params;
@@ -268,12 +266,11 @@ export const updateTask = async (req: Request, res: Response) => {
  * The task is identified using the combination of the primary key (PK) and sort key (SK) in the table.
  *
  * The `userId` and `taskId` are expected to be provided as URL parameters in the route.
- * The route format should be `/users/:userId/tasks/:taskId`.
  *
  * Upon successful deletion, a 200 status is returned with a confirmation message.
  * If there is an error during the deletion operation, a 500 error is returned.
  *
- * **Route:** `DELETE /users/:userId/tasks/:taskId`
+ * **Route:** `DELETE api/users/:userId/tasks/:taskId`
  */
 export const deleteTask = async (req: Request, res: Response) => {
   const { userId, taskId } = req.params;
