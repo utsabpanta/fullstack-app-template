@@ -12,7 +12,7 @@ const UserTasksPage: React.FC = () => {
     fetchTasks();
   }, []);
 
-  const fetchTasks = async () => {
+  const fetchTasks = async (): Promise<void> => {
     try {
       const response = await axios.get(`/users/${userId}/tasks`);
       setTasks(response.data);
@@ -21,7 +21,7 @@ const UserTasksPage: React.FC = () => {
     }
   };
 
-  const handleDelete = async (taskId: string) => {
+  const handleDelete = async (taskId: string): Promise<void> => {
     try {
       await axios.delete(`/users/${userId}/tasks/${taskId}`);
       fetchTasks();
@@ -30,7 +30,7 @@ const UserTasksPage: React.FC = () => {
     }
   };
 
-  const handleEdit = (taskId: string) => {
+  const handleEdit = (taskId: string): void => {
     navigate(`/edit-task/users/${userId}/tasks/${taskId}`);
   };
 

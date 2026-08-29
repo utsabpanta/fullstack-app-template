@@ -7,17 +7,16 @@ import { Task, TaskAttributes } from '../models/task';
  * @returns {TaskAttributes} - The transformed task attributes without PK and SK fields.
  */
 export const transformTask = (task: Task): TaskAttributes => {
-    const { PK, SK, ...attributes } = task;
-  
-    // Extract the UUID from PK and SK
-    const userId = PK.split('#')[1];
-    const id = SK.split('#')[1];
-  
-    // Return the transformed task with id and userId
-    return {
-      ...attributes,
-      userId,
-      id,
-    };
+  const { PK, SK, ...attributes } = task;
+
+  // Extract the UUID from PK and SK
+  const userId = PK.split('#')[1];
+  const id = SK.split('#')[1];
+
+  // Return the transformed task with id and userId
+  return {
+    ...attributes,
+    userId,
+    id,
   };
-  
+};

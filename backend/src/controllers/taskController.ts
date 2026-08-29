@@ -107,7 +107,10 @@ export const getTasksByUser = async (
  *
  * **Route:** `GET api/users/:userId/tasks/:taskId`
  */
-export const getTaskById = async (req: Request, res: Response) => {
+export const getTaskById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { userId, taskId } = req.params;
   const params = {
     TableName: TABLE_NAME,
@@ -141,7 +144,10 @@ export const getTaskById = async (req: Request, res: Response) => {
  *
  * **Route:** `POST api/users/:userId/tasks`
  */
-export const createTask = async (req: Request, res: Response) => {
+export const createTask = async (
+  req: Request,
+  res: Response
+): Promise<Response | undefined> => {
   const { userId, title, description, status, dueDate } = req.body;
 
   // Validate required fields
@@ -186,7 +192,10 @@ export const createTask = async (req: Request, res: Response) => {
  *
  * **Route:** `PUT api/users/:userId/tasks/:taskId`
  */
-export const updateTask = async (req: Request, res: Response) => {
+export const updateTask = async (
+  req: Request,
+  res: Response
+): Promise<Response | undefined> => {
   const { userId, taskId } = req.params;
   const body: TaskAttributes = req.body;
 
@@ -206,7 +215,10 @@ export const updateTask = async (req: Request, res: Response) => {
     }
 
     const updateExpressions: string[] = [];
-    const expressionAttributeValues: { [key: string]: any } = {};
+    const expressionAttributeValues: Record<
+      string,
+      TaskAttributes[keyof TaskAttributes]
+    > = {};
     const expressionAttributeNames: { [key: string]: string } = {};
 
     // Dynamically process only allowed attributes from the TaskAttributes type
@@ -272,9 +284,11 @@ export const updateTask = async (req: Request, res: Response) => {
  *
  * **Route:** `DELETE api/users/:userId/tasks/:taskId`
  */
-export const deleteTask = async (req: Request, res: Response) => {
+export const deleteTask = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { userId, taskId } = req.params;
-  console.log('looging userId and taskId', userId, taskId);
   const params = {
     TableName: TABLE_NAME,
     Key: {
