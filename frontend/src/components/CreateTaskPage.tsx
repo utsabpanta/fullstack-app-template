@@ -10,7 +10,7 @@ const CreateTaskPage: React.FC = () => {
   const navigate = useNavigate();
   const { userId } = useParams<{ userId: string }>();
 
-  const handleCreate = async () => {
+  const handleCreate = async (): Promise<void> => {
     const taskData = {
       userId,
       title,

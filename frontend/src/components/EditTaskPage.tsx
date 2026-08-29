@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from '../api/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Task, TaskAttributes } from '../models/task';
@@ -15,17 +15,11 @@ const EditTaskPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchTask();
-  }, [taskId]);
-
-  const fetchTask = async () => {
+  const fetchTask = useCallback(async (): Promise<void> => {
     try {
       const response: Task = await axios
         .get<Task>(`/users/${userId}/tasks/${taskId}`)
         .then(response => response.data);
-      console.log('response', response);
-
       // Convert dueDate to the format required by input[type="datetime-local"]
       const dueDate = new Date(response.dueDate).toISOString().slice(0, 16);
       // Destructure to exclude id and userId from taskData
@@ -42,16 +36,20 @@ const EditTaskPage: React.FC = () => {
       setError('Failed to load task.');
       setLoading(false);
     }
-  };
+  }, [userId, taskId]);
+
+  useEffect(() => {
+    fetchTask();
+  }, [fetchTask]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  ): void => {
     const { name, value } = e.target;
     setTask(prevTask => ({ ...prevTask, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     try {
       await axios.put(`/users/${userId}/tasks/${taskId}`, task);
